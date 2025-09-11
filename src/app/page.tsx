@@ -38,7 +38,262 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Home() {
+// Custom hook for detecting mobile devices
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile;
+}
+
+// Mobile-optimized component
+function MobileView() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const products = [
+    {
+      name: "School ERP",
+      tagline: "Smart School Management",
+      description: "Transform your school with our AI-powered management platform.",
+      gradient: "from-blue-500 to-purple-500",
+      icon: <AcademicCapIcon className="w-8 h-8" />
+    },
+    {
+      name: "Smart Bus",
+      tagline: "Safe Transportation", 
+      description: "Real-time GPS tracking and safety management for school buses.",
+      gradient: "from-green-500 to-emerald-500",
+      icon: <MapPinIcon className="w-8 h-8" />
+    },
+    {
+      name: "Sumo Kids",
+      tagline: "Fun Learning Platform",
+      description: "Engaging educational content that makes learning enjoyable.",
+      gradient: "from-purple-500 to-pink-500",
+      icon: <StarIcon className="w-8 h-8" />
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Mobile Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
+              SS
+            </div>
+            <span className="font-bold text-lg">SuperSumo</span>
+          </div>
+          <button className="p-2">
+            <div className="w-6 h-0.5 bg-white mb-1.5"></div>
+            <div className="w-6 h-0.5 bg-white mb-1.5"></div>
+            <div className="w-6 h-0.5 bg-white"></div>
+          </button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="pt-20 pb-16 px-4 text-center relative overflow-hidden">
+        {/* Simple background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-black"></div>
+        
+        <div className="relative z-10">
+          {/* Logo */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="mb-8"
+          >
+            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-xl">
+              SS
+            </div>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+          >
+            SuperSumo
+          </motion.h1>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-xl font-bold mb-4 text-blue-300"
+          >
+            Digital Innovation
+          </motion.h2>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed"
+          >
+            Transforming schools and businesses with cutting-edge software solutions.
+          </motion.p>
+
+          {/* CTA Button */}
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.8 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-bold flex items-center gap-2 mx-auto shadow-xl"
+          >
+            <RocketLaunchIcon className="w-5 h-5" />
+            Get Started
+          </motion.button>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section className="py-16 px-4">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent"
+        >
+          Our Products
+        </motion.h2>
+        
+        <div className="space-y-6">
+          {products.map((product, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+            >
+              <div className="flex items-start gap-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${product.gradient} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
+                  {product.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-1">{product.name}</h3>
+                  <p className="text-sm text-blue-400 font-medium mb-2">{product.tagline}</p>
+                  <p className="text-slate-400 text-sm leading-relaxed">{product.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-16 px-4 bg-gradient-to-br from-slate-900/50 to-purple-900/20">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent"
+        >
+          Our Services
+        </motion.h2>
+        
+        <div className="grid grid-cols-2 gap-4">
+          {[
+            { name: "Custom Software", icon: <Code2 className="w-6 h-6" />, color: "from-blue-500 to-cyan-500" },
+            { name: "Mobile Apps", icon: <Smartphone className="w-6 h-6" />, color: "from-purple-500 to-pink-500" },
+            { name: "School Solutions", icon: <GraduationCap className="w-6 h-6" />, color: "from-green-500 to-emerald-500" },
+            { name: "Cloud Solutions", icon: <Cloud className="w-6 h-6" />, color: "from-orange-500 to-red-500" }
+          ].map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white/5 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10"
+            >
+              <div className={`w-10 h-10 bg-gradient-to-br ${service.color} rounded-lg flex items-center justify-center text-white mx-auto mb-3`}>
+                {service.icon}
+              </div>
+              <h3 className="font-semibold text-sm">{service.name}</h3>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-16 px-4">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent"
+        >
+          Get In Touch
+        </motion.h2>
+        
+        <div className="space-y-4">
+          {[
+            { icon: <PhoneIcon className="w-6 h-6" />, label: "Call Us", value: "814 815 9801", href: "tel:8148159801" },
+            { icon: <EnvelopeIcon className="w-6 h-6" />, label: "Email Us", value: "support@supersumo.in", href: "mailto:support@supersumo.in" },
+            { icon: <MapPinIcon className="w-6 h-6" />, label: "Visit Us", value: "Karaikudi, Tamil Nadu", href: "#" }
+          ].map((contact, index) => (
+            <motion.a
+              key={index}
+              href={contact.href}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 block"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                {contact.icon}
+              </div>
+              <div>
+                <h3 className="font-semibold">{contact.label}</h3>
+                <p className="text-slate-400 text-sm">{contact.value}</p>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 bg-slate-900/50 border-t border-white/10">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
+              SS
+            </div>
+            <span className="font-bold">SuperSumo</span>
+          </div>
+          <p className="text-slate-500 text-sm">© 2024 SuperSumo. Crafted with ❤️</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+// Desktop component (existing design)
+function DesktopView() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -1449,4 +1704,17 @@ export default function Home() {
       </AnimatePresence>
     </div>
   );
+}
+
+// Main component with responsive switching
+export default function Home() {
+  const isMobile = useIsMobile();
+  
+  // Show mobile view for screens smaller than 768px
+  if (isMobile) {
+    return <MobileView />;
+  }
+  
+  // Show desktop view for larger screens
+  return <DesktopView />;
 }
