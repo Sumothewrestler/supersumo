@@ -58,11 +58,15 @@ function useIsMobile() {
 
 // Mobile-optimized component
 function MobileView() {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
 
   const products = [
     {
@@ -94,17 +98,59 @@ function MobileView() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">
-              SS
+            <div className="w-8 h-8 rounded-lg overflow-hidden">
+              <Image
+                src="/supersumo-logo.png"
+                alt="SuperSumo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain"
+              />
             </div>
             <span className="font-bold text-lg">SuperSumo</span>
           </div>
-          <button className="p-2">
-            <div className="w-6 h-0.5 bg-white mb-1.5"></div>
-            <div className="w-6 h-0.5 bg-white mb-1.5"></div>
-            <div className="w-6 h-0.5 bg-white"></div>
+          <button 
+            className="p-2 relative"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <div className={`w-6 h-0.5 bg-white mb-1.5 transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+            <div className={`w-6 h-0.5 bg-white mb-1.5 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
+            <div className={`w-6 h-0.5 bg-white transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
           </button>
         </div>
+        
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="bg-black/95 backdrop-blur-md border-t border-white/10"
+            >
+              <nav className="px-4 py-4 space-y-4">
+                <button 
+                  onClick={() => scrollToSection('services')}
+                  className="block w-full text-left py-2 text-slate-300 hover:text-white transition-colors"
+                >
+                  Services
+                </button>
+                <button 
+                  onClick={() => scrollToSection('products')}
+                  className="block w-full text-left py-2 text-slate-300 hover:text-white transition-colors"
+                >
+                  Products
+                </button>
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="block w-full text-left py-2 text-slate-300 hover:text-white transition-colors"
+                >
+                  Contact
+                </button>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Section */}
@@ -120,8 +166,14 @@ function MobileView() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-xl">
-              SS
+            <div className="w-16 h-16 mx-auto rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/supersumo-logo.png"
+                alt="SuperSumo"
+                width={64}
+                height={64}
+                className="w-full h-full object-contain"
+              />
             </div>
           </motion.div>
 
@@ -167,44 +219,8 @@ function MobileView() {
         </div>
       </section>
 
-      {/* Products Section */}
-      <section className="py-16 px-4">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent"
-        >
-          Our Products
-        </motion.h2>
-        
-        <div className="space-y-6">
-          {products.map((product, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
-            >
-              <div className="flex items-start gap-4">
-                <div className={`w-12 h-12 bg-gradient-to-br ${product.gradient} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
-                  {product.icon}
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-1">{product.name}</h3>
-                  <p className="text-sm text-blue-400 font-medium mb-2">{product.tagline}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed">{product.description}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
       {/* Services Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-slate-900/50 to-purple-900/20">
+      <section id="services" className="py-16 px-4 bg-gradient-to-br from-slate-900/50 to-purple-900/20">
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -238,8 +254,119 @@ function MobileView() {
         </div>
       </section>
 
+      {/* Products Section */}
+      <section id="products" className="py-16 px-4">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent"
+        >
+          Our Products
+        </motion.h2>
+        
+        <div className="space-y-6">
+          {products.map((product, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+            >
+              {/* Product Image */}
+              <div className="mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+                <Image
+                  src={`/products/${product.name === 'School ERP' ? 'school_erp.png' : product.name === 'Smart Bus' ? 'smart_bus.png' : 'sumokids.png'}`}
+                  alt={`${product.name} Interface`}
+                  width={400}
+                  height={200}
+                  className="w-full h-32 object-cover rounded-xl"
+                />
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${product.gradient} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
+                  {product.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-1">{product.name}</h3>
+                  <p className="text-sm text-blue-400 font-medium mb-2">{product.tagline}</p>
+                  <p className="text-slate-400 text-sm leading-relaxed">{product.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Trusted By Section - Mobile Optimized */}
+      <section className="py-12 px-4 bg-gradient-to-br from-slate-900/30 to-purple-900/10">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-2xl font-black text-center mb-8 bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent"
+        >
+          Trusted by
+        </motion.h2>
+        
+        {/* Mobile-Optimized Logo Grid */}
+        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+          {[1, 2, 3, 4].map((num) => (
+            <motion.div
+              key={num}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: num * 0.1 }}
+              className="bg-white/5 backdrop-blur-sm rounded-xl p-4 flex items-center justify-center border border-white/10 h-16"
+            >
+              <Image
+                src={`/logo_cus_${num}.png`}
+                alt={`Customer ${num}`}
+                width={80}
+                height={40}
+                className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Additional Logo Row for Mobile */}
+        <div className="flex justify-center mt-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="bg-white/5 backdrop-blur-sm rounded-xl p-4 flex items-center justify-center border border-white/10 h-16 w-32"
+          >
+            <Image
+              src="/logo_cus_5.png"
+              alt="Customer 5"
+              width={80}
+              height={40}
+              className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
+            />
+          </motion.div>
+        </div>
+        
+        {/* Trust Badge */}
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.7 }}
+          className="text-center text-slate-400 text-sm mt-6"
+        >
+          Trusted by 200+ organizations
+        </motion.p>
+      </section>
+
       {/* Contact Section */}
-      <section className="py-16 px-4">
+      <section id="contact" className="py-16 px-4">
         <motion.h2 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -253,7 +380,7 @@ function MobileView() {
           {[
             { icon: <PhoneIcon className="w-6 h-6" />, label: "Call Us", value: "814 815 9801", href: "tel:8148159801" },
             { icon: <EnvelopeIcon className="w-6 h-6" />, label: "Email Us", value: "support@supersumo.in", href: "mailto:support@supersumo.in" },
-            { icon: <MapPinIcon className="w-6 h-6" />, label: "Visit Us", value: "Karaikudi, Tamil Nadu", href: "#" }
+            { icon: <MapPinIcon className="w-6 h-6" />, label: "Visit Us", value: "No. 84, Rasi Tower, Karuppar Kovil Main Road, Prabhu Nagar, Karaikudi - 630 002, Tamil Nadu", href: "#" }
           ].map((contact, index) => (
             <motion.a
               key={index}
@@ -280,8 +407,14 @@ function MobileView() {
       <footer className="py-8 px-4 bg-slate-900/50 border-t border-white/10">
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">
-              SS
+            <div className="w-6 h-6 rounded-lg overflow-hidden">
+              <Image
+                src="/supersumo-logo.png"
+                alt="SuperSumo"
+                width={24}
+                height={24}
+                className="w-full h-full object-contain"
+              />
             </div>
             <span className="font-bold">SuperSumo</span>
           </div>
@@ -875,7 +1008,7 @@ function DesktopView() {
 
                   {/* Stats */}
                   <div className="flex gap-8 mb-8">
-                    {Object.entries(product.stats).map(([key, value], idx) => (
+                    {Object.entries(product.stats).map(([key, value]) => (
                       <div key={key} className="text-center">
                         <div className="text-2xl font-bold text-blue-400">{value}</div>
                         <div className="text-sm text-slate-400 capitalize">{key}</div>
