@@ -89,6 +89,13 @@ function MobileView() {
       description: "Engaging educational content that makes learning enjoyable.",
       gradient: "from-purple-500 to-pink-500",
       icon: <StarIcon className="w-8 h-8" />
+    },
+    {
+      name: "Book Sumo",
+      tagline: "Hotel Booking & Management",
+      description: "Manage walk-ins, advance bookings. View real-time room status: Vacant, Occupied. Maintain detailed guest history, preferences, and contact information.",
+      gradient: "from-orange-500 to-red-500",
+      icon: <BuildingOfficeIcon className="w-8 h-8" />
     }
   ];
 
@@ -278,7 +285,7 @@ function MobileView() {
               {/* Product Image */}
               <div className="mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
                 <Image
-                  src={`/products/${product.name === 'School ERP' ? 'school_erp.png' : product.name === 'Smart Bus' ? 'smart_bus.png' : 'sumokids.png'}`}
+                  src={`/products/${product.name === 'School ERP' ? 'school_erp.png' : product.name === 'Smart Bus' ? 'smart_bus.png' : product.name === 'Book Sumo' ? 'book_sumo.png' : 'sumokids.png'}`}
                   alt={`${product.name} Interface`}
                   width={400}
                   height={200}
@@ -531,7 +538,7 @@ function DesktopView() {
       features: ["GPS Precision", "AI Route Optimization", "Safety Protocols", "Parent Peace of Mind", "Real-time Updates"],
       icon: <MapPinIcon className="w-16 h-16" />,
       gradient: "from-green-500 via-emerald-500 to-teal-500",
-      link: "/products/mock_2.png",
+      link: "/products/smart-bus",
       stats: { buses: "1000+", routes: "5K+", safety: "100%" }
     },
     {
@@ -543,6 +550,16 @@ function DesktopView() {
       gradient: "from-purple-500 via-pink-500 to-rose-500",
       link: "/products/sumo-kids",
       stats: { children: "25K+", lessons: "10K+", engagement: "95%" }
+    },
+    {
+      name: "Book Sumo",
+      tagline: "Hotel Booking & Management Software",
+      description: "Comprehensive hotel management platform for walk-ins, advance bookings, and real-time room status tracking with detailed guest analytics.",
+      features: ["Room Status Management", "Guest History Tracking", "Booking Intelligence", "Real-time Analytics", "Contact Management"],
+      icon: <BuildingOfficeIcon className="w-16 h-16" />,
+      gradient: "from-orange-500 via-red-500 to-pink-500",
+      link: "https://booksumo.vercel.app",
+      stats: { hotels: "150+", bookings: "25K+", efficiency: "98%" }
     }
   ];
 
@@ -1016,25 +1033,47 @@ function DesktopView() {
                     ))}
                   </div>
 
-                  <Link href={product.link}>
-                    <motion.button
-                      whileHover={{ 
-                        scale: 1.05,
-                        boxShadow: "0 0 40px rgba(59, 130, 246, 0.4)"
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`group bg-gradient-to-r ${product.gradient} text-white px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 shadow-2xl`}
-                    >
-                      <SparklesIcon className="w-6 h-6" />
-                      Experience {product.name}
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
+                  {product.link.startsWith('http') ? (
+                    <a href={product.link} target="_blank" rel="noopener noreferrer">
+                      <motion.button
+                        whileHover={{ 
+                          scale: 1.05,
+                          boxShadow: "0 0 40px rgba(59, 130, 246, 0.4)"
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`group bg-gradient-to-r ${product.gradient} text-white px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 shadow-2xl`}
                       >
-                        <ArrowRightIcon className="w-5 h-5" />
-                      </motion.div>
-                    </motion.button>
-                  </Link>
+                        <SparklesIcon className="w-6 h-6" />
+                        Experience {product.name}
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <ArrowRightIcon className="w-5 h-5" />
+                        </motion.div>
+                      </motion.button>
+                    </a>
+                  ) : (
+                    <Link href={product.link}>
+                      <motion.button
+                        whileHover={{ 
+                          scale: 1.05,
+                          boxShadow: "0 0 40px rgba(59, 130, 246, 0.4)"
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`group bg-gradient-to-r ${product.gradient} text-white px-10 py-4 rounded-full font-bold text-lg flex items-center gap-3 shadow-2xl`}
+                      >
+                        <SparklesIcon className="w-6 h-6" />
+                        Experience {product.name}
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <ArrowRightIcon className="w-5 h-5" />
+                        </motion.div>
+                      </motion.button>
+                    </Link>
+                  )}
                 </motion.div>
 
                 {/* Product Mockup */}
@@ -1063,7 +1102,7 @@ function DesktopView() {
                         </div>
                         <div className="h-64 bg-white/5 rounded-xl flex items-center justify-center relative overflow-hidden">
                           <Image
-                            src={`/products/${product.name === 'School ERP' ? 'school_erp.png' : product.name === 'Smart Bus' ? 'smart_bus.png' : 'sumokids.png'}`}
+                            src={`/products/${product.name === 'School ERP' ? 'school_erp.png' : product.name === 'Smart Bus' ? 'smart_bus.png' : product.name === 'Book Sumo' ? 'book_sumo.png' : 'sumokids.png'}`}
                             alt={`${product.name} Interface`}
                             width={400}
                             height={250}
@@ -1739,9 +1778,10 @@ function DesktopView() {
               <h4 className="font-bold text-xl mb-6 text-blue-400">Products</h4>
               <ul className="space-y-3">
                 {[
-                  { name: "School ERP", href: "/products/mock_1" },
-                  { name: "Smart Bus", href: "/products/mock_2" },
+                  { name: "School ERP", href: "/products/school-erp" },
+                  { name: "Smart Bus", href: "/products/smart-bus" },
                   { name: "Sumo Kids", href: "/products/sumo-kids" },
+                  { name: "Book Sumo", href: "https://booksumo.vercel.app" },
                   { name: "Sumo360", href: "/products/sumo360" }
                 ].map((product, index) => (
                   <motion.li
@@ -1750,13 +1790,25 @@ function DesktopView() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Link 
-                      href={product.href} 
-                      className="text-slate-400 hover:text-white hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 group"
-                    >
-                      <ArrowRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {product.name}
-                    </Link>
+                    {product.href.startsWith('http') ? (
+                      <a 
+                        href={product.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-400 hover:text-white hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 group"
+                      >
+                        <ArrowRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        {product.name}
+                      </a>
+                    ) : (
+                      <Link 
+                        href={product.href} 
+                        className="text-slate-400 hover:text-white hover:translate-x-2 transition-all duration-300 inline-flex items-center gap-2 group"
+                      >
+                        <ArrowRightIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        {product.name}
+                      </Link>
+                    )}
                   </motion.li>
                 ))}
               </ul>
