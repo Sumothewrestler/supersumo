@@ -256,7 +256,7 @@ function MobileView() {
                 </div>
                 
                 <h1 className="text-5xl font-black mb-3">
-                  <span className="text-white">Super</span>
+                  <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super</span>
                   <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Sumo</span>
                 </h1>
                 
@@ -348,7 +348,7 @@ function MobileView() {
             <div className="text-center py-6">
               <div className="relative inline-block">
                 <h2 className="text-4xl font-black mb-2">
-                  <span className="text-white">Super </span>
+                  <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
                   <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Products</span>
                 </h2>
                 <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full"></div>
@@ -366,7 +366,10 @@ function MobileView() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-2xl font-black text-white">Super School</h3>
+                        <h3 className="text-2xl font-black">
+                          <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
+                          <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">School</span>
+                        </h3>
                         <span className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs font-bold rounded-full border border-blue-500/30">FEATURED</span>
                       </div>
                       <p className="text-blue-300 text-sm font-semibold">Complete School ERP System</p>
@@ -413,8 +416,11 @@ function MobileView() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex-1">
-                              <h3 className="text-xl font-black text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-200 group-hover:bg-clip-text transition-all duration-300">
-                                {product.name}
+                              <h3 className="text-xl font-black mb-1 transition-all duration-300">
+                                <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
+                                <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent group-hover:from-white group-hover:to-slate-200">
+                                  {product.name.replace('Super ', '')}
+                                </span>
                               </h3>
                               <div className="flex items-center gap-2">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
@@ -484,7 +490,7 @@ function MobileView() {
           <div className="space-y-8">
             <div className="text-center py-8">
               <h2 className="text-4xl font-black mb-4">
-                <span className="text-white">Super </span>
+                <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
                 <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Services</span>
               </h2>
               <p className="text-slate-400 text-sm">Fast, affordable, and quality-assured solutions</p>
@@ -535,84 +541,163 @@ function MobileView() {
         )}
 
         {activeTab === 'our-clients' && (
-          <div className="space-y-8">
-            <div className="text-center py-8">
-              <h2 className="text-4xl font-black mb-4 bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent">
-                Our Clients
-              </h2>
-              <p className="text-slate-400 text-sm">Trusted by leading organizations worldwide</p>
-            </div>
-            
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-green-500 text-white px-6 py-3 rounded-2xl font-bold text-lg shadow-xl">
-                <span>🏆</span>
-                <span>200+ Organizations</span>
+          <div className="space-y-6">
+            {/* Premium Header */}
+            <div className="text-center py-6">
+              <div className="relative inline-block">
+                <h2 className="text-4xl font-black mb-2">
+                  <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Our </span>
+                  <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Clients</span>
+                </h2>
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full"></div>
               </div>
+              <p className="text-slate-300 text-sm mt-4 font-medium">Trusted by industry leaders worldwide</p>
             </div>
-            
-            <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
-              {[1, 2, 3, 4].map((num) => (
-                <div
-                  key={num}
-                  className="bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 flex items-center justify-center border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] h-24 group"
-                >
-                  <Image
-                    src={`/logo_cus_${num}.png`}
-                    alt={`Customer ${num}`}
-                    width={90}
-                    height={45}
-                    className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-110 transform"
-                  />
+
+            {/* Trust Metrics Section */}
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500/10 via-green-500/5 to-cyan-500/10 p-1">
+              <div className="bg-black/40 backdrop-blur-xl rounded-[22px] p-6 border border-white/10">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white px-6 py-3 rounded-2xl font-black text-xl shadow-xl">
+                    <span className="text-2xl">🏆</span>
+                    <span>200+ Organizations</span>
+                  </div>
                 </div>
-              ))}
-            </div>
-            
-            <div className="flex justify-center">
-              <div className="bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 flex items-center justify-center border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] h-24 w-36 group">
-                <Image
-                  src="/logo_cus_5.png"
-                  alt="Customer 5"
-                  width={90}
-                  height={45}
-                  className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-110 transform"
-                />
+                
+                {/* Achievement Stats */}
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  {[
+                    { number: "50K+", label: "Users", icon: "👥", color: "from-blue-500 to-cyan-500" },
+                    { number: "99%", label: "Uptime", icon: "⚡", color: "from-green-500 to-emerald-500" },
+                    { number: "24/7", label: "Support", icon: "🛟", color: "from-purple-500 to-pink-500" }
+                  ].map((stat, index) => (
+                    <div key={index} className="text-center p-3 bg-white/[0.05] rounded-2xl border border-white/10">
+                      <div className={`w-10 h-10 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center text-white mx-auto mb-2 shadow-lg`}>
+                        <span className="text-lg">{stat.icon}</span>
+                      </div>
+                      <div className="text-lg font-black text-white">{stat.number}</div>
+                      <div className="text-xs text-slate-400 font-medium">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Trust Badges */}
+                <div className="flex flex-wrap justify-center gap-2">
+                  {["ISO Certified", "SOC 2 Compliant", "GDPR Ready", "99.9% SLA"].map((badge, idx) => (
+                    <span key={idx} className="px-3 py-1 bg-emerald-500/10 text-emerald-300 text-xs font-bold rounded-full border border-emerald-500/20">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-            
-            <div className="mt-12">
-              <h3 className="text-2xl font-black mb-6 text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Industry Leaders
+
+            {/* Client Logos - Premium Showcase */}
+            <div className="space-y-6">
+              <h3 className="text-center text-lg font-black text-slate-300 mb-4">Trusted By</h3>
+              
+              {/* Featured Clients */}
+              <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+                {[1, 2, 3, 4].map((num) => (
+                  <div key={num} className="group relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-white/[0.08] rounded-2xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                    <div className="relative bg-white/[0.03] backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-300 hover:bg-white/[0.08] h-24 flex items-center justify-center group">
+                      <Image
+                        src={`/logo_cus_${num}.png`}
+                        alt={`Customer ${num}`}
+                        width={100}
+                        height={50}
+                        className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-110 transform filter grayscale hover:grayscale-0"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Additional Client */}
+              <div className="flex justify-center">
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-white/[0.08] rounded-2xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                  <div className="relative bg-white/[0.03] backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-300 hover:bg-white/[0.08] h-24 w-36 flex items-center justify-center group">
+                    <Image
+                      src="/logo_cus_5.png"
+                      alt="Customer 5"
+                      width={100}
+                      height={50}
+                      className="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-110 transform filter grayscale hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Industry Breakdown */}
+            <div className="mt-8">
+              <h3 className="text-2xl font-black mb-6 text-center">
+                <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Industry </span>
+                <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Leaders</span>
               </h3>
               
-              <div className="grid grid-cols-1 gap-4 max-w-md mx-auto">
+              <div className="space-y-3">
                 {[
-                  { name: "Schools & Educational Institutions", icon: "🎓", color: "from-blue-500 to-cyan-500" },
-                  { name: "Healthcare Organizations", icon: "🏥", color: "from-green-500 to-emerald-500" },
-                  { name: "Business Enterprises", icon: "🏢", color: "from-purple-500 to-pink-500" },
-                  { name: "Government Agencies", icon: "🏛️", color: "from-orange-500 to-red-500" }
+                  { name: "Educational Institutions", count: "50+", icon: "🎓", color: "from-blue-500 to-cyan-500", percentage: "25%" },
+                  { name: "Healthcare Organizations", count: "40+", icon: "🏥", color: "from-green-500 to-emerald-500", percentage: "20%" },
+                  { name: "Business Enterprises", count: "80+", icon: "🏢", color: "from-purple-500 to-pink-500", percentage: "40%" },
+                  { name: "Government Agencies", count: "30+", icon: "🏛️", color: "from-orange-500 to-red-500", percentage: "15%" }
                 ].map((clientType, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/[0.03] backdrop-blur-sm rounded-2xl p-5 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] group flex items-center gap-4"
-                  >
-                    <div className={`w-12 h-12 bg-gradient-to-br ${clientType.color} rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                      <span className="text-lg">{clientType.icon}</span>
-                    </div>
-                    <div>
-                      <p className="font-bold text-base text-white">{clientType.name}</p>
-                      <p className="text-xs text-slate-400">Industry Partners</p>
+                  <div key={index} className="group">
+                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-white/[0.02] to-white/[0.05] border border-white/10 hover:border-white/20 transition-all duration-300">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${clientType.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300`}></div>
+                      
+                      <div className="relative p-4 flex items-center gap-4">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${clientType.color} rounded-xl flex items-center justify-center text-white shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110`}>
+                          <span className="text-lg">{clientType.icon}</span>
+                        </div>
+                        
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="font-bold text-base text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-200 group-hover:bg-clip-text transition-all duration-300">
+                              {clientType.name}
+                            </h4>
+                            <span className="text-sm font-bold text-slate-300">{clientType.count}</span>
+                          </div>
+                          
+                          {/* Progress Bar */}
+                          <div className="w-full bg-white/10 rounded-full h-2">
+                            <div 
+                              className={`h-2 bg-gradient-to-r ${clientType.color} rounded-full transition-all duration-500 group-hover:shadow-lg`}
+                              style={{ width: clientType.percentage }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            
-            <div className="text-center py-8">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg inline-flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+
+            {/* Testimonial Quote */}
+            <div className="mt-8 p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-3xl border border-white/10 text-center">
+              <div className="text-4xl mb-4">💬</div>
+              <p className="text-slate-300 text-sm italic mb-4 leading-relaxed">
+                &ldquo;SuperSumo transformed our operations with their innovative solutions. Their team&rsquo;s expertise and dedication made the difference.&rdquo;
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  CEO
+                </div>
+                <span className="text-xs text-slate-400 font-medium">Leading Educational Institute</span>
+              </div>
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="text-center py-6">
+              <button className="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-8 py-4 rounded-2xl font-bold text-lg inline-flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95">
                 <span>🚀</span>
                 <span>Join Our Success Stories</span>
                 <ArrowRightIcon className="w-5 h-5" />
-              </div>
+              </button>
             </div>
           </div>
         )}
@@ -642,7 +727,7 @@ function MobileView() {
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-black">
-                  <span className="text-white">Super </span>
+                  <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
                   <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Products</span>
                 </h3>
                 <button
@@ -661,7 +746,12 @@ function MobileView() {
                       {product.icon}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-base text-white">{product.name}</h4>
+                      <h4 className="font-bold text-base">
+                        <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
+                        <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+                          {product.name.replace('Super ', '')}
+                        </span>
+                      </h4>
                       <p className="text-xs text-slate-400">{product.tagline}</p>
                     </div>
                     {product.href.startsWith('http') ? (
@@ -714,7 +804,7 @@ function MobileView() {
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-2xl font-black">
-                  <span className="text-white">Super </span>
+                  <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">Super </span>
                   <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Services</span>
                 </h3>
                 <button
