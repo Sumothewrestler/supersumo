@@ -60,6 +60,8 @@ function useIsMobile() {
 function MobileView() {
   const [activeTab, setActiveTab] = useState('home');
   const [isTabChanging, setIsTabChanging] = useState(false);
+  const [showProductsModal, setShowProductsModal] = useState(false);
+  const [showServicesModal, setShowServicesModal] = useState(false);
 
   const handleTabChange = (newTab: string) => {
     if (newTab === activeTab) return;
@@ -144,21 +146,18 @@ function MobileView() {
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-black to-slate-900 text-white pb-20 font-sans">
       {/* Mobile Header - Enhanced */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/85 backdrop-blur-xl border-b border-white/5 shadow-2xl">
-        <div className="flex items-center justify-center px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg ring-2 ring-blue-500/20">
+        <div className="flex items-center justify-start px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg overflow-hidden shadow-lg">
               <Image
                 src="/supersumo-logo.png"
                 alt="SuperSumo"
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 className="w-full h-full object-contain"
               />
             </div>
-            <div>
-              <span className="font-black text-xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">SuperSumo</span>
-              <div className="text-xs text-slate-400 font-medium">Digital Innovation</div>
-            </div>
+            <span className="font-light text-sm text-white/80">SuperSumo</span>
           </div>
         </div>
       </header>
@@ -260,9 +259,9 @@ function MobileView() {
                   SuperSumo
                 </h1>
                 
-                <p className="text-lg text-slate-300 mb-3 font-medium">Digital Innovation Platform</p>
+                <p className="text-lg text-slate-300 mb-3 font-medium">Building the Future</p>
                 <p className="text-sm text-slate-400 mb-8 max-w-xs mx-auto leading-relaxed">
-                  Transforming schools and businesses with cutting-edge software solutions
+                  We craft easy, effective, and beautiful software
                 </p>
 
                 <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3 mx-auto shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
@@ -280,21 +279,32 @@ function MobileView() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: "Super Products", icon: <CogIcon className="w-7 h-7" />, color: "from-blue-500 to-cyan-500", desc: "Innovative solutions" },
-                    { name: "Super Services", icon: <BuildingOfficeIcon className="w-7 h-7" />, color: "from-purple-500 to-pink-500", desc: "Custom development" },
-                    { name: "Innovation", icon: <LightBulbIcon className="w-7 h-7" />, color: "from-green-500 to-emerald-500", desc: "Cutting-edge tech" },
-                    { name: "Excellence", icon: <StarIcon className="w-7 h-7" />, color: "from-orange-500 to-red-500", desc: "Quality assured" }
+                    { 
+                      name: "Super Products", 
+                      icon: <CogIcon className="w-7 h-7" />, 
+                      color: "from-blue-500 to-cyan-500", 
+                      desc: "Innovative solutions",
+                      action: () => setShowProductsModal(true)
+                    },
+                    { 
+                      name: "Super Services", 
+                      icon: <BuildingOfficeIcon className="w-7 h-7" />, 
+                      color: "from-purple-500 to-pink-500", 
+                      desc: "Custom development",
+                      action: () => setShowServicesModal(true)
+                    }
                   ].map((item, index) => (
-                    <div
+                    <button
                       key={index}
-                      className="bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] group"
+                      onClick={item.action}
+                      className="bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] group active:scale-95"
                     >
                       <div className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                         {item.icon}
                       </div>
                       <h3 className="font-bold text-base mb-1 text-center">{item.name}</h3>
                       <p className="text-xs text-slate-400 text-center">{item.desc}</p>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </section>
@@ -332,59 +342,138 @@ function MobileView() {
           )}
 
         {activeTab === 'super-products' && (
-          <div className="space-y-8">
-            <div className="text-center py-8">
-              <h2 className="text-4xl font-black mb-4 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                Super Products
-              </h2>
-              <p className="text-slate-400 text-sm">Innovative solutions for modern challenges</p>
+          <div className="space-y-6">
+            {/* Premium Header Section */}
+            <div className="text-center py-6">
+              <div className="relative inline-block">
+                <h2 className="text-4xl font-black mb-2 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  Super Products
+                </h2>
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              </div>
+              <p className="text-slate-300 text-sm mt-4 font-medium">Transforming industries with innovative solutions</p>
             </div>
-            
-            <div className="space-y-5">
-              {superProducts.map((product, index) => (
-                <div
-                  key={index}
-                  className="bg-white/[0.03] backdrop-blur-sm rounded-3xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] group"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${product.gradient} rounded-2xl flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300`}>
-                      {product.icon}
+
+            {/* Featured Product - Super School */}
+            <div className="relative overflow-hidden">
+              <div className="bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-cyan-500/10 rounded-3xl p-1">
+                <div className="bg-black/40 backdrop-blur-xl rounded-[22px] p-6 border border-white/10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-2xl">
+                      <AcademicCapIcon className="w-7 h-7" />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="font-black text-xl mb-1">{product.name}</h3>
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${product.bgColor} ${product.textColor}`}>
-                            {product.tagline}
-                          </span>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-2xl font-black text-white">Super School</h3>
+                        <span className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs font-bold rounded-full border border-blue-500/30">FEATURED</span>
+                      </div>
+                      <p className="text-blue-300 text-sm font-semibold">Complete School ERP System</p>
+                    </div>
+                  </div>
+                  
+                  <p className="text-slate-300 text-sm leading-relaxed mb-5">
+                    Revolutionary educational ecosystem with AI-powered analytics, student management, and comprehensive administrative tools.
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {["AI Analytics", "Student Portal", "Parent App", "Admin Dashboard"].map((feature, idx) => (
+                      <span key={idx} className="px-3 py-1 bg-blue-500/10 text-blue-300 text-xs font-medium rounded-full border border-blue-500/20">
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <Link 
+                    href="/products/school-erp"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 shadow-xl hover:shadow-2xl active:scale-95"
+                  >
+                    <span>Explore Super School</span>
+                    <ArrowRightIcon className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Other Products Grid */}
+            <div className="space-y-4">
+              {superProducts.slice(1).map((product, index) => (
+                <div key={index} className="group">
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-white/[0.02] to-white/[0.05] border border-white/10 hover:border-white/20 transition-all duration-300">
+                    {/* Gradient overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${product.gradient} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300`}></div>
+                    
+                    <div className="relative p-5">
+                      <div className="flex items-start gap-4">
+                        <div className={`w-14 h-14 bg-gradient-to-br ${product.gradient} rounded-2xl flex items-center justify-center text-white shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110`}>
+                          {product.icon}
+                        </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex-1">
+                              <h3 className="text-xl font-black text-white mb-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-200 group-hover:bg-clip-text transition-all duration-300">
+                                {product.name}
+                              </h3>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                  {product.tagline}
+                                </span>
+                                {product.href.startsWith('http') && (
+                                  <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 text-xs font-bold rounded-full border border-emerald-500/30">
+                                    LIVE
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <p className="text-slate-300 text-sm leading-relaxed mb-4 line-clamp-2">
+                            {product.description}
+                          </p>
+                          
+                          <div className="flex items-center justify-between">
+                            {product.href.startsWith('http') ? (
+                              <a 
+                                href={product.href} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 border border-white/20 hover:border-white/40 active:scale-95"
+                              >
+                                <span>Visit {product.name}</span>
+                                <ArrowRightIcon className="w-4 h-4" />
+                              </a>
+                            ) : (
+                              <Link 
+                                href={product.href}
+                                className="inline-flex items-center gap-2 text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 border border-white/20 hover:border-white/40 active:scale-95"
+                              >
+                                <span>Learn More</span>
+                                <ArrowRightIcon className="w-4 h-4" />
+                              </Link>
+                            )}
+                            
+                            <div className="flex items-center gap-1 text-slate-400">
+                              <StarIcon className="w-4 h-4 fill-current text-yellow-400" />
+                              <span className="text-xs font-medium">Premium</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      
-                      <p className="text-slate-300 text-sm leading-relaxed mb-4">{product.description}</p>
-                      
-                      {product.href.startsWith('http') ? (
-                        <a 
-                          href={product.href} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg"
-                        >
-                          <span>Visit {product.name}</span>
-                          <ArrowRightIcon className="w-4 h-4" />
-                        </a>
-                      ) : (
-                        <Link 
-                          href={product.href}
-                          className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg"
-                        >
-                          <span>Learn More</span>
-                          <ArrowRightIcon className="w-4 h-4" />
-                        </Link>
-                      )}
                     </div>
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Bottom CTA Section */}
+            <div className="mt-8 p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-3xl border border-white/10 text-center">
+              <h3 className="text-lg font-black text-white mb-2">Need Something Custom?</h3>
+              <p className="text-slate-400 text-sm mb-4">We build tailored solutions for your specific requirements</p>
+              <button className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 shadow-xl hover:shadow-2xl active:scale-95">
+                <span>🚀</span>
+                <span>Start Your Project</span>
+                <ArrowRightIcon className="w-4 h-4" />
+              </button>
             </div>
           </div>
         )}
@@ -526,6 +615,143 @@ function MobileView() {
         )}
         </div>
       </div>
+
+      {/* Super Products Modal */}
+      <AnimatePresence>
+        {showProductsModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowProductsModal(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+            
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative bg-black/90 backdrop-blur-xl rounded-3xl p-6 w-full max-w-md border border-white/20 shadow-2xl"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Super Products
+                </h3>
+                <button
+                  onClick={() => setShowProductsModal(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <span className="text-white text-lg">×</span>
+                </button>
+              </div>
+
+              {/* Products List */}
+              <div className="space-y-4">
+                {superProducts.map((product, index) => (
+                  <div key={index} className="flex items-center gap-4 p-4 bg-white/[0.03] rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] group">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${product.gradient} rounded-xl flex items-center justify-center text-white shadow-lg`}>
+                      {product.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-base text-white">{product.name}</h4>
+                      <p className="text-xs text-slate-400">{product.tagline}</p>
+                    </div>
+                    {product.href.startsWith('http') ? (
+                      <a 
+                        href={product.href} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:text-blue-300 transition-colors"
+                        onClick={() => setShowProductsModal(false)}
+                      >
+                        <ArrowRightIcon className="w-5 h-5" />
+                      </a>
+                    ) : (
+                      <Link 
+                        href={product.href}
+                        className="text-blue-400 hover:text-blue-300 transition-colors"
+                        onClick={() => setShowProductsModal(false)}
+                      >
+                        <ArrowRightIcon className="w-5 h-5" />
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Super Services Modal */}
+      <AnimatePresence>
+        {showServicesModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowServicesModal(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+            
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative bg-black/90 backdrop-blur-xl rounded-3xl p-6 w-full max-w-md border border-white/20 shadow-2xl"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-black bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                  Super Services
+                </h3>
+                <button
+                  onClick={() => setShowServicesModal(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                >
+                  <span className="text-white text-lg">×</span>
+                </button>
+              </div>
+
+              {/* Services List */}
+              <div className="space-y-4">
+                {[
+                  { name: "Website", icon: <GlobeAltIcon className="w-6 h-6" />, color: "from-green-500 to-emerald-500", desc: "Modern responsive websites" },
+                  { name: "Android & iOS App Development", icon: <Smartphone className="w-6 h-6" />, color: "from-purple-500 to-pink-500", desc: "Native mobile applications" },
+                  { name: "Software Development", icon: <Code2 className="w-6 h-6" />, color: "from-blue-500 to-cyan-500", desc: "Custom software solutions" }
+                ].map((service, index) => (
+                  <div key={index} className="flex items-center gap-4 p-4 bg-white/[0.03] rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/[0.06] group">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center text-white shadow-lg`}>
+                      {service.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-base text-white">{service.name}</h4>
+                      <p className="text-xs text-slate-400">{service.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <div className="mt-6 pt-4 border-t border-white/10">
+                <button 
+                  onClick={() => setShowServicesModal(false)}
+                  className="w-full bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white py-3 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
+                >
+                  Get Quote
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <footer className="py-8 px-4 bg-slate-900/50 border-t border-white/10">
