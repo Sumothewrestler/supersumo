@@ -255,8 +255,9 @@ function MobileView() {
                   />
                 </div>
                 
-                <h1 className="text-5xl font-black mb-3 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  SuperSumo
+                <h1 className="text-5xl font-black mb-3">
+                  <span className="text-white">Super</span>
+                  <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Sumo</span>
                 </h1>
                 
                 <p className="text-lg text-slate-300 mb-3 font-medium">Building the Future</p>
@@ -346,10 +347,11 @@ function MobileView() {
             {/* Premium Header Section */}
             <div className="text-center py-6">
               <div className="relative inline-block">
-                <h2 className="text-4xl font-black mb-2 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  Super Products
+                <h2 className="text-4xl font-black mb-2">
+                  <span className="text-white">Super </span>
+                  <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Products</span>
                 </h2>
-                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full"></div>
               </div>
               <p className="text-slate-300 text-sm mt-4 font-medium">Transforming industries with innovative solutions</p>
             </div>
@@ -481,8 +483,9 @@ function MobileView() {
         {activeTab === 'super-services' && (
           <div className="space-y-8">
             <div className="text-center py-8">
-              <h2 className="text-4xl font-black mb-4 bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-                Super Services
+              <h2 className="text-4xl font-black mb-4">
+                <span className="text-white">Super </span>
+                <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Services</span>
               </h2>
               <p className="text-slate-400 text-sm">Fast, affordable, and quality-assured solutions</p>
             </div>
@@ -638,8 +641,9 @@ function MobileView() {
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Super Products
+                <h3 className="text-2xl font-black">
+                  <span className="text-white">Super </span>
+                  <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Products</span>
                 </h3>
                 <button
                   onClick={() => setShowProductsModal(false)}
@@ -709,8 +713,9 @@ function MobileView() {
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-black bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-                  Super Services
+                <h3 className="text-2xl font-black">
+                  <span className="text-white">Super </span>
+                  <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">Services</span>
                 </h3>
                 <button
                   onClick={() => setShowServicesModal(false)}
