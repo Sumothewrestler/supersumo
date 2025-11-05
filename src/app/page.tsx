@@ -58,52 +58,69 @@ function useIsMobile() {
 
 // Mobile-optimized component
 function MobileView() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('home');
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
-
-  const products = [
+  const superProducts = [
     {
-      name: "School ERP",
-      tagline: "Smart School Management",
-      description: "Transform your school with our AI-powered management platform.",
+      name: "Super School",
+      tagline: "School ERP System",
+      description: "Complete educational ecosystem for school management with AI-powered analytics.",
       gradient: "from-blue-500 to-purple-500",
-      icon: <AcademicCapIcon className="w-8 h-8" />
+      icon: <AcademicCapIcon className="w-8 h-8" />,
+      href: "/products/school-erp"
     },
     {
-      name: "Smart Bus",
-      tagline: "Safe Transportation", 
-      description: "Real-time GPS tracking and safety management for school buses.",
+      name: "Super Bus",
+      tagline: "Smart Bus Tracking",
+      description: "Real-time GPS tracking and safety management for school transportation.",
       gradient: "from-green-500 to-emerald-500",
-      icon: <MapPinIcon className="w-8 h-8" />
+      icon: <MapPinIcon className="w-8 h-8" />,
+      href: "/products/smart-bus"
     },
     {
-      name: "Sumo Kids",
-      tagline: "Fun Learning Platform",
-      description: "Engaging educational content that makes learning enjoyable.",
+      name: "Super Round",
+      tagline: "College Placement Platform",
+      description: "Aptitude, Mock Interview, HR Interview, AI Resume Analyzer, Group Discussion. Building Confidence & Professional English for student job readiness.",
       gradient: "from-purple-500 to-pink-500",
-      icon: <StarIcon className="w-8 h-8" />
+      icon: <GraduationCap className="w-8 h-8" />,
+      href: "https://superround.in"
     },
     {
-      name: "Book Sumo",
-      tagline: "Hotel Booking & Management",
-      description: "Manage walk-ins, advance bookings. View real-time room status: Vacant, Occupied. Maintain detailed guest history, preferences, and contact information.",
+      name: "Super Staff",
+      tagline: "Staff Management System",
+      description: "1. Automatic Attendance (Geofence/Biometric) 2. Payroll Management 3. Task Management - Complete workforce solution.",
       gradient: "from-orange-500 to-red-500",
-      icon: <BuildingOfficeIcon className="w-8 h-8" />
+      icon: <UserGroupIcon className="w-8 h-8" />,
+      href: "https://superstaff.in"
+    }
+  ];
+
+  const superServices = [
+    {
+      name: "Customized Software",
+      description: "Tailored software solutions built for your specific business needs at affordable cost.",
+      icon: <Code2 className="w-6 h-6" />,
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      name: "Android & iOS Apps",
+      description: "Native mobile applications for Android and iOS platforms, delivered fast and cost-effective.",
+      icon: <Smartphone className="w-6 h-6" />,
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      name: "Websites",
+      description: "Modern, responsive websites that drive results. Fast development, affordable pricing.",
+      icon: <GlobeAltIcon className="w-6 h-6" />,
+      color: "from-green-500 to-emerald-500"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white pb-20">
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-        <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center justify-center px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg overflow-hidden">
               <Image
@@ -116,299 +133,415 @@ function MobileView() {
             </div>
             <span className="font-bold text-lg">SuperSumo</span>
           </div>
-          <button 
-            className="p-2 relative"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <div className={`w-6 h-0.5 bg-white mb-1.5 transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-white mb-1.5 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-white transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
-          </button>
         </div>
-        
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="bg-black/95 backdrop-blur-md border-t border-white/10"
-            >
-              <nav className="px-4 py-4 space-y-4">
-                <button 
-                  onClick={() => scrollToSection('services')}
-                  className="block w-full text-left py-2 text-slate-300 hover:text-white transition-colors"
-                >
-                  Services
-                </button>
-                <button 
-                  onClick={() => scrollToSection('products')}
-                  className="block w-full text-left py-2 text-slate-300 hover:text-white transition-colors"
-                >
-                  Products
-                </button>
-                <button 
-                  onClick={() => scrollToSection('contact')}
-                  className="block w-full text-left py-2 text-slate-300 hover:text-white transition-colors"
-                >
-                  Contact
-                </button>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </header>
 
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 px-4 text-center relative overflow-hidden">
-        {/* Simple background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-black"></div>
-        
-        <div className="relative z-10">
-          {/* Logo */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="mb-8"
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-t border-white/10">
+        <div className="flex justify-around items-center py-2">
+          <button
+            onClick={() => setActiveTab('home')}
+            className={`flex flex-col items-center py-2 px-4 transition-colors ${
+              activeTab === 'home' ? 'text-blue-400' : 'text-slate-400'
+            }`}
           >
-            <div className="w-16 h-16 mx-auto rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/supersumo-logo.png"
-                alt="SuperSumo"
-                width={64}
-                height={64}
-                className="w-full h-full object-contain"
-              />
+            <div className="w-6 h-6 mb-1">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+              </svg>
             </div>
-          </motion.div>
-
-          {/* Title */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-          >
-            SuperSumo
-          </motion.h1>
+            <span className="text-xs font-medium">Home</span>
+          </button>
           
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-xl font-bold mb-4 text-blue-300"
+          <button
+            onClick={() => setActiveTab('super-products')}
+            className={`flex flex-col items-center py-2 px-4 transition-colors ${
+              activeTab === 'super-products' ? 'text-blue-400' : 'text-slate-400'
+            }`}
           >
-            Digital Innovation
-          </motion.h2>
-
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed"
+            <div className="w-6 h-6 mb-1">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            </div>
+            <span className="text-xs font-medium">Super Products</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveTab('super-services')}
+            className={`flex flex-col items-center py-2 px-4 transition-colors ${
+              activeTab === 'super-services' ? 'text-blue-400' : 'text-slate-400'
+            }`}
           >
-            Transforming schools and businesses with cutting-edge software solutions.
-          </motion.p>
-
-          {/* CTA Button */}
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-bold flex items-center gap-2 mx-auto shadow-xl"
+            <div className="w-6 h-6 mb-1">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" />
+                <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+              </svg>
+            </div>
+            <span className="text-xs font-medium">Super Services</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveTab('our-clients')}
+            className={`flex flex-col items-center py-2 px-4 transition-colors ${
+              activeTab === 'our-clients' ? 'text-blue-400' : 'text-slate-400'
+            }`}
           >
-            <RocketLaunchIcon className="w-5 h-5" />
-            Get Started
-          </motion.button>
+            <div className="w-6 h-6 mb-1">
+              <svg fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span className="text-xs font-medium">Our Clients</span>
+          </button>
         </div>
-      </section>
+      </nav>
 
-      {/* Services Section */}
-      <section id="services" className="py-16 px-4 bg-gradient-to-br from-slate-900/50 to-purple-900/20">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent"
-        >
-          Our Services
-        </motion.h2>
-        
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { name: "Custom Software", icon: <Code2 className="w-6 h-6" />, color: "from-blue-500 to-cyan-500" },
-            { name: "Mobile Apps", icon: <Smartphone className="w-6 h-6" />, color: "from-purple-500 to-pink-500" },
-            { name: "School Solutions", icon: <GraduationCap className="w-6 h-6" />, color: "from-green-500 to-emerald-500" },
-            { name: "Cloud Solutions", icon: <Cloud className="w-6 h-6" />, color: "from-orange-500 to-red-500" }
-          ].map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10"
-            >
-              <div className={`w-10 h-10 bg-gradient-to-br ${service.color} rounded-lg flex items-center justify-center text-white mx-auto mb-3`}>
-                {service.icon}
-              </div>
-              <h3 className="font-semibold text-sm">{service.name}</h3>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <section id="products" className="py-16 px-4">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent"
-        >
-          Our Products
-        </motion.h2>
-        
-        <div className="space-y-6">
-          {products.map((product, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
-            >
-              {/* Product Image */}
-              <div className="mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
-                <Image
-                  src={`/products/${product.name === 'School ERP' ? 'school_erp.png' : product.name === 'Smart Bus' ? 'smart_bus.png' : product.name === 'Book Sumo' ? 'book_sumo.png' : 'sumokids.png'}`}
-                  alt={`${product.name} Interface`}
-                  width={400}
-                  height={200}
-                  className="w-full h-32 object-cover rounded-xl"
-                />
-              </div>
+      {/* Main Content Based on Active Tab */}
+      <div className="pt-16">
+        {activeTab === 'home' && (
+          <>
+            {/* Hero Section */}
+            <section className="py-16 px-4 text-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-black"></div>
               
-              <div className="flex items-start gap-4">
-                <div className={`w-12 h-12 bg-gradient-to-br ${product.gradient} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
-                  {product.icon}
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-1">{product.name}</h3>
-                  <p className="text-sm text-blue-400 font-medium mb-2">{product.tagline}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed">{product.description}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+              <div className="relative z-10">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="mb-8"
+                >
+                  <div className="w-16 h-16 mx-auto rounded-2xl overflow-hidden shadow-xl">
+                    <Image
+                      src="/supersumo-logo.png"
+                      alt="SuperSumo"
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </motion.div>
 
-      {/* Trusted By Section - Mobile Optimized */}
-      <section className="py-12 px-4 bg-gradient-to-br from-slate-900/30 to-purple-900/10">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-2xl font-black text-center mb-8 bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent"
-        >
-          Trusted by
-        </motion.h2>
-        
-        {/* Mobile-Optimized Logo Grid */}
-        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
-          {[1, 2, 3, 4].map((num) => (
+                <motion.h1 
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                  className="text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+                >
+                  SuperSumo
+                </motion.h1>
+                
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                  className="text-xl font-bold mb-4 text-blue-300"
+                >
+                  Digital Innovation
+                </motion.h2>
+
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7, duration: 0.8 }}
+                  className="text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed"
+                >
+                  Transforming schools and businesses with cutting-edge software solutions.
+                </motion.p>
+
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.9, duration: 0.8 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-bold flex items-center gap-2 mx-auto shadow-xl"
+                >
+                  <RocketLaunchIcon className="w-5 h-5" />
+                  Get Started
+                </motion.button>
+              </div>
+            </section>
+
+            {/* What We Do Section */}
+            <section className="py-16 px-4 bg-gradient-to-br from-slate-900/50 to-purple-900/20">
+              <motion.h2 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent"
+              >
+                What We Do
+              </motion.h2>
+              
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { name: "Super Products", icon: <CogIcon className="w-6 h-6" />, color: "from-blue-500 to-cyan-500" },
+                  { name: "Super Services", icon: <BuildingOfficeIcon className="w-6 h-6" />, color: "from-purple-500 to-pink-500" },
+                  { name: "Innovation", icon: <LightBulbIcon className="w-6 h-6" />, color: "from-green-500 to-emerald-500" },
+                  { name: "Excellence", icon: <StarIcon className="w-6 h-6" />, color: "from-orange-500 to-red-500" }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white/5 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10"
+                  >
+                    <div className={`w-10 h-10 bg-gradient-to-br ${item.color} rounded-lg flex items-center justify-center text-white mx-auto mb-3`}>
+                      {item.icon}
+                    </div>
+                    <h3 className="font-semibold text-sm">{item.name}</h3>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
+            {/* Contact Section */}
+            <section className="py-16 px-4">
+              <motion.h2 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent"
+              >
+                Get In Touch
+              </motion.h2>
+              
+              <div className="space-y-4">
+                {[
+                  { icon: <PhoneIcon className="w-6 h-6" />, label: "Call Us", value: "814 815 9801", href: "tel:8148159801" },
+                  { icon: <EnvelopeIcon className="w-6 h-6" />, label: "Email Us", value: "support@supersumo.in", href: "mailto:support@supersumo.in" },
+                  { icon: <MapPinIcon className="w-6 h-6" />, label: "Visit Us", value: "No. 84, Rasi Tower, Karuppar Kovil Main Road, Prabhu Nagar, Karaikudi - 630 002, Tamil Nadu", href: "#" }
+                ].map((contact, index) => (
+                  <motion.a
+                    key={index}
+                    href={contact.href}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 block"
+                  >
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                      {contact.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">{contact.label}</h3>
+                      <p className="text-slate-400 text-sm">{contact.value}</p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
+
+        {activeTab === 'super-products' && (
+          <section className="py-16 px-4">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent"
+            >
+              Super Products
+            </motion.h2>
+            
+            <div className="space-y-6">
+              {superProducts.map((product, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 }}
+                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${product.gradient} rounded-xl flex items-center justify-center text-white flex-shrink-0`}>
+                      {product.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg mb-1">{product.name}</h3>
+                      <p className="text-sm text-blue-400 font-medium mb-2">{product.tagline}</p>
+                      <p className="text-slate-400 text-sm leading-relaxed mb-4">{product.description}</p>
+                      
+                      {product.href.startsWith('http') ? (
+                        <a 
+                          href={product.href} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
+                        >
+                          <span>Visit {product.name}</span>
+                          <ArrowRightIcon className="w-4 h-4" />
+                        </a>
+                      ) : (
+                        <Link 
+                          href={product.href}
+                          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
+                        >
+                          <span>Learn More</span>
+                          <ArrowRightIcon className="w-4 h-4" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeTab === 'super-services' && (
+          <section className="py-16 px-4">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent"
+            >
+              Super Services
+            </motion.h2>
+            
+            <div className="space-y-6">
+              {superServices.map((service, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10"
+                >
+                  <div className={`w-12 h-12 bg-gradient-to-br ${service.color} rounded-lg flex items-center justify-center text-white mx-auto mb-4`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="font-bold text-lg mb-2">{service.name}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{service.description}</p>
+                </motion.div>
+              ))}
+            </div>
+            
             <motion.div
-              key={num}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: num * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-4 flex items-center justify-center border border-white/10 h-16"
+              transition={{ delay: 0.5 }}
+              className="mt-12 text-center"
             >
-              <Image
-                src={`/logo_cus_${num}.png`}
-                alt={`Customer ${num}`}
-                width={80}
-                height={40}
-                className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
-              />
+              <h3 className="text-xl font-bold mb-4 text-blue-300">Why Choose Our Services?</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  "Fast Delivery",
+                  "Affordable Cost", 
+                  "Quality Assured",
+                  "24/7 Support"
+                ].map((feature, index) => (
+                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+                    <p className="text-sm font-medium text-green-400">{feature}</p>
+                  </div>
+                ))}
+              </div>
             </motion.div>
-          ))}
-        </div>
-        
-        {/* Additional Logo Row for Mobile */}
-        <div className="flex justify-center mt-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="bg-white/5 backdrop-blur-sm rounded-xl p-4 flex items-center justify-center border border-white/10 h-16 w-32"
-          >
-            <Image
-              src="/logo_cus_5.png"
-              alt="Customer 5"
-              width={80}
-              height={40}
-              className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
-            />
-          </motion.div>
-        </div>
-        
-        {/* Trust Badge */}
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.7 }}
-          className="text-center text-slate-400 text-sm mt-6"
-        >
-          Trusted by 200+ organizations
-        </motion.p>
-      </section>
+          </section>
+        )}
 
-      {/* Contact Section */}
-      <section id="contact" className="py-16 px-4">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent"
-        >
-          Get In Touch
-        </motion.h2>
-        
-        <div className="space-y-4">
-          {[
-            { icon: <PhoneIcon className="w-6 h-6" />, label: "Call Us", value: "814 815 9801", href: "tel:8148159801" },
-            { icon: <EnvelopeIcon className="w-6 h-6" />, label: "Email Us", value: "support@supersumo.in", href: "mailto:support@supersumo.in" },
-            { icon: <MapPinIcon className="w-6 h-6" />, label: "Visit Us", value: "No. 84, Rasi Tower, Karuppar Kovil Main Road, Prabhu Nagar, Karaikudi - 630 002, Tamil Nadu", href: "#" }
-          ].map((contact, index) => (
-            <motion.a
-              key={index}
-              href={contact.href}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+        {activeTab === 'our-clients' && (
+          <section className="py-16 px-4">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 block"
+              className="text-3xl font-black text-center mb-12 bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white flex-shrink-0">
-                {contact.icon}
+              Our Clients
+            </motion.h2>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="text-center text-slate-300 mb-8 text-lg"
+            >
+              Trusted by leading organizations
+            </motion.p>
+            
+            <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+              {[1, 2, 3, 4].map((num) => (
+                <motion.div
+                  key={num}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: num * 0.1 }}
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-4 flex items-center justify-center border border-white/10 h-20"
+                >
+                  <Image
+                    src={`/logo_cus_${num}.png`}
+                    alt={`Customer ${num}`}
+                    width={80}
+                    height={40}
+                    className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
+                  />
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="flex justify-center mt-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="bg-white/5 backdrop-blur-sm rounded-xl p-4 flex items-center justify-center border border-white/10 h-20 w-32"
+              >
+                <Image
+                  src="/logo_cus_5.png"
+                  alt="Customer 5"
+                  width={80}
+                  height={40}
+                  className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
+                />
+              </motion.div>
+            </div>
+            
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+              className="text-center mt-8"
+            >
+              <p className="text-slate-400 text-sm mb-4">Trusted by 200+ organizations</p>
+              
+              <div className="grid grid-cols-1 gap-4 max-w-md mx-auto mt-8">
+                {[
+                  "Schools & Educational Institutions",
+                  "Healthcare Organizations", 
+                  "Business Enterprises",
+                  "Government Agencies"
+                ].map((clientType, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8 + index * 0.1 }}
+                    className="bg-white/5 backdrop-blur-sm rounded-lg p-3 border border-white/10"
+                  >
+                    <p className="text-sm font-medium text-blue-300">{clientType}</p>
+                  </motion.div>
+                ))}
               </div>
-              <div>
-                <h3 className="font-semibold">{contact.label}</h3>
-                <p className="text-slate-400 text-sm">{contact.value}</p>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </section>
+            </motion.div>
+          </section>
+        )}
+      </div>
 
       {/* Footer */}
       <footer className="py-8 px-4 bg-slate-900/50 border-t border-white/10">
